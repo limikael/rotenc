@@ -1,6 +1,6 @@
 #include "RotEnc.h"
 
-static RotEnc *RotEnc::_instance=NULL;
+RotEnc *RotEnc::_instance=NULL;
 
 RotEnc::RotEnc(int pinA, int pinB) {
 	_instance=this;
@@ -15,7 +15,7 @@ RotEnc::RotEnc(int pinA, int pinB) {
 	attachInterrupt(digitalPinToInterrupt(_pinB),_pinBHandler,CHANGE);
 }
 
-static void RotEnc::_pinAHandler() {
+ICACHE_RAM_ATTR void RotEnc::_pinAHandler() {
 	cli();
 	if (digitalRead(_instance->_pinA)==digitalRead(_instance->_pinB))
 		_instance->_value++;
@@ -26,7 +26,7 @@ static void RotEnc::_pinAHandler() {
 	sei();
 }
 
-static void RotEnc::_pinBHandler() {
+ICACHE_RAM_ATTR void RotEnc::_pinBHandler() {
 	cli();
 	if (digitalRead(_instance->_pinA)==digitalRead(_instance->_pinB))
 		_instance->_value--;

@@ -1,9 +1,15 @@
 #ifndef __ROTENC_H__
 #define __ROTENC_H__
 
+#ifndef MOCK_ARDUINO
 #include <Arduino.h>
+#endif
 
 class RotEnc {
+public:
+	RotEnc(int pinA, int pinB);
+	int getValue();
+
 private:
 	int _pinA;
 	int _pinB;
@@ -13,9 +19,7 @@ private:
 	static void _pinAHandler();
 	static void _pinBHandler();
 
-public:
-	RotEnc(int pinA, int pinB);
-	int getValue();
+	friend void setRotEncMockValue(int v);
 };
 
 #endif
